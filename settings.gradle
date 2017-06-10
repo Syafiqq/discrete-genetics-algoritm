@@ -1,3 +1,4 @@
 rootProject.name = 'discrete-genetics-algoritm'
 include 'core'
+include 'case'
 
