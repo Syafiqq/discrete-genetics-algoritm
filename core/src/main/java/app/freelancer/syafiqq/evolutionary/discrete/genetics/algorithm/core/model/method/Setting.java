@@ -19,7 +19,7 @@ import java.util.Objects;
     {
     }
 
-    public Setting(int populationSize, int generationCount, double crossoverRate, double mutationRate)
+    public Setting(int populationSize, double crossoverRate, double mutationRate)
     {
         this.populationSize = populationSize;
         this.crossoverRate = crossoverRate;
