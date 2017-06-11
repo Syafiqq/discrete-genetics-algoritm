@@ -2,7 +2,6 @@ package app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.
 
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.dao.CornPlantation;
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.dao.Fertilizer;
-import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.element.CornElement;
 import java.util.ArrayList;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +34,7 @@ public class GeneticsAlgorithmImplTest
         @NotNull final List<Fertilizer> fertilizerList = new ArrayList<>();
         for(Object[] fertilizer : rawFertilizer)
         {
-            fertilizerList.add(new Fertilizer((String) fertilizer[0], new CornElement((Integer) fertilizer[1], (Integer) fertilizer[2], (Integer) fertilizer[3]), (Integer) fertilizer[4]));
+            fertilizerList.add(new Fertilizer((String) fertilizer[0], Double.valueOf((Integer) fertilizer[1]), Double.valueOf((Integer) fertilizer[2]), Double.valueOf((Integer) fertilizer[3]), (Integer) fertilizer[4]));
         }
         return fertilizerList;
     }
