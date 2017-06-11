@@ -1,6 +1,11 @@
 package app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.element;
 
+import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.method.utils.DoubleMap;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Map;
 import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
 
 /*
  * This <discrete-genetics-algoritm> created by : 
@@ -11,59 +16,88 @@ import java.util.Objects;
  */
 public class CornElement
 {
-    private double nitrogen;
-    private double phosphorus;
-    private double potassium;
+    private DoubleMap elements;
 
     public CornElement()
     {
+        this(0.0, 0.0, 0.0);
     }
 
     public CornElement(double nitrogen, double phosphorus, double potassium)
     {
-        this.nitrogen = nitrogen;
-        this.phosphorus = phosphorus;
-        this.potassium = potassium;
+        this.elements = new DoubleMap();
+        this.generateElement();
+        this.put("nitrogen", nitrogen);
+        this.put("phosphorus", phosphorus);
+        this.put("potassium", potassium);
     }
 
-    public double getNitrogen()
+    private void generateElement()
     {
-        return this.nitrogen;
+        this.put("nitrogen", 0.0);
+        this.put("phosphorus", 0.0);
+        this.put("potassium", 0.0);
     }
 
-    public void setNitrogen(double nitrogen)
+    public DoubleMap getElements()
     {
-        this.nitrogen = nitrogen;
+        return this.elements;
     }
 
-    public double getPhosphorus()
+    public void setElements(DoubleMap elements)
     {
-        return this.phosphorus;
+        this.elements = elements;
     }
 
-    public void setPhosphorus(double phosphorus)
+    public void plus(String k, Double v)
     {
-        this.phosphorus = phosphorus;
+        getElements().plus(k, v);
     }
 
-    public double getPotassium()
+    public void minus(String k, Double v)
     {
-        return this.potassium;
+        getElements().minus(k, v);
     }
 
-    public void setPotassium(double potassium)
+    public void multiply(String k, Double v)
     {
-        this.potassium = potassium;
+        getElements().multiply(k, v);
     }
 
-    public double getMaximumElement()
+    public void divide(String k, Double v)
     {
-        return Math.max(this.getNitrogen(), Math.max(this.getPhosphorus(), this.getPotassium()));
+        getElements().divide(k, v);
+    }
+
+    public Double get(String k)
+    {
+        return elements.get(k);
+    }
+
+    public Double put(String key, Double value)
+    {
+        return elements.put(key, value);
+    }
+
+    public Map.Entry<String, Double> getMaximumElement()
+    {
+        return Collections.max(this.getElements().entrySet(), new Comparator<Map.Entry<String, Double>>()
+        {
+            @Override public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2)
+            {
+                return Double.compare(o2.getValue(), o1.getValue());
+            }
+        });
     }
 
     public boolean isComposite()
     {
-        return Math.signum(this.getNitrogen()) + Math.signum(this.getPhosphorus()) + Math.signum(this.getPotassium()) > 1;
+        double composite = 0;
+        for(@NotNull final Double value : this.getElements().values())
+        {
+            composite += Math.signum(value);
+        }
+        return composite > 1;
     }
 
     @Override public boolean equals(Object o)
@@ -77,25 +111,19 @@ public class CornElement
             return false;
         }
         CornElement that = (CornElement) o;
-        return Double.compare(that.getNitrogen(), getNitrogen()) == 0 &&
-                Double.compare(that.getPhosphorus(), getPhosphorus()) == 0 &&
-                Double.compare(that.getPotassium(), getPotassium()) == 0;
+        return Objects.equals(getElements(), that.getElements());
     }
 
     @Override public int hashCode()
     {
-        return Objects.hash(getNitrogen(), getPhosphorus(), getPotassium());
+        return Objects.hash(getElements());
     }
 
     @Override public String toString()
     {
         final StringBuilder sb = new StringBuilder("CornElement{");
-        sb.append("nitrogen=").append(nitrogen);
-        sb.append(", phosphorus=").append(phosphorus);
-        sb.append(", potassium=").append(potassium);
+        sb.append("elements=").append(elements);
         sb.append('}');
         return sb.toString();
     }
-
-
 }
