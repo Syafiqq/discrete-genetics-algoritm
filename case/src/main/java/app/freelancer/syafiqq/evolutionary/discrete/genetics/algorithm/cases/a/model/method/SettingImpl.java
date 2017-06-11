@@ -10,7 +10,7 @@ import java.util.Objects;
  * Email        : syafiq.rezpector@gmail.com
  * Github       : syafiqq
  */
-@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue"}) public class SettingImpl extends Setting
+@SuppressWarnings({"SameParameterValue"}) public class SettingImpl extends Setting
 {
     private int individualWindow;
     private int generationCount;
