@@ -2,7 +2,6 @@ package app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.
 
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.dao.CornPlantation;
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.dao.Fertilizer;
-import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.element.CornElement;
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.core.model.method.GeneticsAlgorithm;
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.core.model.method.IndividualEvaluator;
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.core.model.method.Population;
@@ -18,7 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.jetbrains.annotations.NotNull;
 
 /*
- * This <discrete-genetics-algoritm> created by : 
+ * This <discrete-genetics-algoritm> created by :
  * Name         : syafiq
  * Date / Time  : 08 June 2017, 11:39 AM.
  * Email        : syafiq.rezpector@gmail.com
@@ -179,58 +178,29 @@ import org.jetbrains.annotations.NotNull;
             final double highest = element.getMaximumElement();
             final double highestNeed = Math.max(nitrogenNeed, Math.max(phosphorusNeed, potassiumNeed));
             boolean isComposite = element.isComposite();
-            if((Double.compare(highest, element.getNitrogen()) == 0) && (isComposite ? (Double.compare(highestNeed, nitrogenNeed) == 0) : (nitrogenNeed > 0.0)))
-            {
-                fertilizeTotal = Math.ceil((100.0 / element.getNitrogen()) * nitrogenNeed);
-                totalCost += fertilizeTotal * fertilizer.getCost();
-                nitrogenNeed -= fertilizeTotal;
-                if(element.getPotassium() > 0.0)
-                {
-                    potassiumNeed -= Math.floor((element.getPotassium() / 100.0) * fertilizeTotal);
-                }
-                if(element.getPhosphorus() > 0.0)
-                {
-                    phosphorusNeed -= Math.floor((element.getPhosphorus() / 100.0) * fertilizeTotal);
-                }
-            }
-
             if(isComposite)
             {
-                continue;
-            }
 
-            if((Double.compare(highest, element.getPhosphorus()) == 0) && (isComposite ? (Double.compare(highestNeed, phosphorusNeed) == 0) : (phosphorusNeed > 0.0)))
-            {
-                fertilizeTotal = Math.ceil((100.0 / element.getPhosphorus()) * phosphorusNeed);
-                totalCost += fertilizeTotal * fertilizer.getCost();
-                phosphorusNeed -= fertilizeTotal;
-                if(element.getNitrogen() > 0.0)
-                {
-                    nitrogenNeed -= Math.floor((element.getNitrogen() / 100.0) * fertilizeTotal);
-                }
-                if(element.getPotassium() > 0.0)
-                {
-                    potassiumNeed -= Math.floor((element.getPotassium() / 100.0) * fertilizeTotal);
-                }
             }
-
-            if(isComposite)
+            else
             {
-                continue;
-            }
-
-            if((Double.compare(highest, element.getPotassium()) == 0) && (isComposite ? (Double.compare(highestNeed, potassiumNeed) == 0) : (potassiumNeed > 0.0)))
-            {
-                fertilizeTotal = Math.ceil((100.0 / element.getPotassium()) * potassiumNeed);
-                totalCost += fertilizeTotal * fertilizer.getCost();
-                potassiumNeed -= fertilizeTotal;
-                if(element.getNitrogen() > 0.0)
+                if((element.getNitrogen() > 0) && (nitrogenNeed > 0.0))
                 {
-                    nitrogenNeed -= Math.floor((element.getNitrogen() / 100.0) * fertilizeTotal);
+                    fertilizeTotal = Math.ceil((100.0 / element.getNitrogen()) * nitrogenNeed);
+                    totalCost += fertilizeTotal * fertilizer.getCost();
+                    nitrogenNeed -= fertilizeTotal;
                 }
-                if(element.getPhosphorus() > 0.0)
+                else if((element.getPhosphorus() > 0) && (phosphorusNeed > 0.0))
                 {
-                    phosphorusNeed -= Math.floor((element.getPhosphorus() / 100.0) * fertilizeTotal);
+                    fertilizeTotal = Math.ceil((100.0 / element.getPhosphorus()) * phosphorusNeed);
+                    totalCost += fertilizeTotal * fertilizer.getCost();
+                    phosphorusNeed -= fertilizeTotal;
+                }
+                else if((element.getPotassium() > 0) && (potassiumNeed > 0.0))
+                {
+                    fertilizeTotal = Math.ceil((100.0 / element.getPotassium()) * potassiumNeed);
+                    totalCost += fertilizeTotal * fertilizer.getCost();
+                    potassiumNeed -= fertilizeTotal;
                 }
             }
         }
