@@ -10,22 +10,30 @@ import java.util.Objects;
  * Email        : syafiq.rezpector@gmail.com
  * Github       : syafiqq
  */
-@SuppressWarnings({"unused", "WeakerAccess"}) public class Fertilizer
+public class Fertilizer
 {
     private String name;
-    private CornElement element;
+    private CornElement elements;
     private double cost;
 
     public Fertilizer()
     {
     }
 
-    public Fertilizer(String name, CornElement element, double cost)
+    public Fertilizer(String name, CornElement elements, double cost)
     {
         this.name = name;
-        this.element = element;
+        this.elements = elements;
         this.cost = cost;
     }
+
+    public Fertilizer(String name, double nitrogen, double phosphorus, double potassium, double cost)
+    {
+        this.name = name;
+        this.elements = new CornElement(nitrogen, phosphorus, potassium);
+        this.cost = cost;
+    }
+
 
     public String getName()
     {
@@ -37,14 +45,44 @@ import java.util.Objects;
         this.name = name;
     }
 
-    public CornElement getElement()
+    public CornElement getElements()
     {
-        return this.element;
+        return this.elements;
     }
 
-    public void setCaseElement(CornElement element)
+    public void setElements(CornElement elements)
     {
-        this.element = element;
+        this.elements = elements;
+    }
+
+    public void plus(String k, Double v)
+    {
+        getElements().plus(k, v);
+    }
+
+    public void minus(String k, Double v)
+    {
+        getElements().minus(k, v);
+    }
+
+    public void multiply(String k, Double v)
+    {
+        getElements().multiply(k, v);
+    }
+
+    public void divide(String k, Double v)
+    {
+        getElements().divide(k, v);
+    }
+
+    public Double get(String k)
+    {
+        return elements.get(k);
+    }
+
+    public Double put(String key, Double value)
+    {
+        return elements.put(key, value);
     }
 
     public double getCost()
@@ -70,19 +108,21 @@ import java.util.Objects;
         Fertilizer that = (Fertilizer) o;
         return Double.compare(that.getCost(), getCost()) == 0 &&
                 Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getElement(), that.getElement());
+                Objects.equals(getElements(), that.getElements());
     }
 
     @Override public int hashCode()
     {
-        return Objects.hash(getName(), getElement(), getCost());
+        return Objects.hash(getName(), getElements(), getCost());
     }
 
     @Override public String toString()
     {
-        return "Fertilizer{" + "name='" + name + '\'' +
-                ", element=" + element +
-                ", cost=" + cost +
-                '}';
+        final StringBuilder sb = new StringBuilder("Fertilizer{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", elements=").append(elements);
+        sb.append(", cost=").append(cost);
+        sb.append('}');
+        return sb.toString();
     }
 }
