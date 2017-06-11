@@ -1,5 +1,6 @@
 package app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.dao;
 
+import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.method.utils.DoubleMap;
 import java.util.Objects;
 
 /*
@@ -9,51 +10,69 @@ import java.util.Objects;
  * Email        : syafiq.rezpector@gmail.com
  * Github       : syafiqq
  */
-@SuppressWarnings({"WeakerAccess", "unused"}) public class CornPlantation
+public class CornPlantation
 {
-    private double nitrogen;
-    private double phosphorus;
-    private double potassium;
+    private DoubleMap elements;
 
     public CornPlantation()
     {
+        this(0.0, 0.0, 0.0);
     }
 
     public CornPlantation(double nitrogen, double phosphorus, double potassium)
     {
-        this.nitrogen = nitrogen;
-        this.phosphorus = phosphorus;
-        this.potassium = potassium;
+        this.elements = new DoubleMap(3);
+        this.generateElement();
+        this.put("nitrogen", nitrogen);
+        this.put("phosphorus", phosphorus);
+        this.put("potassium", potassium);
     }
 
-    public double getNitrogen()
+    private void generateElement()
     {
-        return this.nitrogen;
+        this.put("nitrogen", 0.0);
+        this.put("phosphorus", 0.0);
+        this.put("potassium", 0.0);
     }
 
-    public void setNitrogen(double nitrogen)
+    public DoubleMap getElements()
     {
-        this.nitrogen = nitrogen;
+        return this.elements;
     }
 
-    public double getPhosphorus()
+    public void setElements(DoubleMap elements)
     {
-        return this.phosphorus;
+        this.elements = elements;
     }
 
-    public void setPhosphorus(double phosphorus)
+    public void plus(String k, Double v)
     {
-        this.phosphorus = phosphorus;
+        getElements().plus(k, v);
     }
 
-    public double getPotassium()
+    public void minus(String k, Double v)
     {
-        return this.potassium;
+        getElements().minus(k, v);
     }
 
-    public void setPotassium(double potassium)
+    public void multiply(String k, Double v)
     {
-        this.potassium = potassium;
+        getElements().multiply(k, v);
+    }
+
+    public void divide(String k, Double v)
+    {
+        getElements().divide(k, v);
+    }
+
+    public Double get(String k)
+    {
+        return elements.get(k);
+    }
+
+    public Double put(String key, Double value)
+    {
+        return elements.put(key, value);
     }
 
     @Override public boolean equals(Object o)
@@ -67,21 +86,19 @@ import java.util.Objects;
             return false;
         }
         CornPlantation that = (CornPlantation) o;
-        return Double.compare(that.getNitrogen(), getNitrogen()) == 0 &&
-                Double.compare(that.getPhosphorus(), getPhosphorus()) == 0 &&
-                Double.compare(that.getPotassium(), getPotassium()) == 0;
+        return Objects.equals(getElements(), that.getElements());
     }
 
     @Override public int hashCode()
     {
-        return Objects.hash(getNitrogen(), getPhosphorus(), getPotassium());
+        return Objects.hash(getElements());
     }
 
     @Override public String toString()
     {
-        return "CornPlantation{" + "nitrogen=" + nitrogen +
-                ", phosphorus=" + phosphorus +
-                ", potassium=" + potassium +
-                '}';
+        final StringBuilder sb = new StringBuilder("CornPlantation{");
+        sb.append("elements=").append(elements);
+        sb.append('}');
+        return sb.toString();
     }
 }
