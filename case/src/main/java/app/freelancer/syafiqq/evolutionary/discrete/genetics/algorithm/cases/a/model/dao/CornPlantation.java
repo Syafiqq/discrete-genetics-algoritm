@@ -1,6 +1,6 @@
 package app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.dao;
 
-import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.method.utils.DoubleMap;
+import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.method.utils.String2DoubleMap;
 import java.util.Objects;
 
 /*
@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 public class CornPlantation
 {
-    private DoubleMap elements;
+    private String2DoubleMap elements;
 
     public CornPlantation()
     {
@@ -21,7 +21,7 @@ public class CornPlantation
 
     public CornPlantation(double nitrogen, double phosphorus, double potassium)
     {
-        this.elements = new DoubleMap(3);
+        this.elements = new String2DoubleMap(3);
         this.generateElement();
         this.put("nitrogen", nitrogen);
         this.put("phosphorus", phosphorus);
@@ -35,12 +35,12 @@ public class CornPlantation
         this.put("potassium", 0.0);
     }
 
-    public DoubleMap getElements()
+    public String2DoubleMap getElements()
     {
         return this.elements;
     }
 
-    public void setElements(DoubleMap elements)
+    public void setElements(String2DoubleMap elements)
     {
         this.elements = elements;
     }
