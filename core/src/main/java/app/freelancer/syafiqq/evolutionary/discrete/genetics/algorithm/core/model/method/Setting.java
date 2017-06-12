@@ -12,6 +12,8 @@ import java.util.Objects;
 @SuppressWarnings({"WeakerAccess", "unused"}) public class Setting
 {
     protected int populationSize;
+    protected int crossoverSize;
+    protected int mutationSize;
     protected double crossoverRate;
     protected double mutationRate;
 
@@ -34,6 +36,8 @@ import java.util.Objects;
     public void setPopulationSize(int populationSize)
     {
         this.populationSize = populationSize;
+        this.setCrossoverSize(this.getPopulationSize(), this.getCrossoverRate());
+        this.setMutationSize(this.getPopulationSize(), this.getMutationRate());
     }
 
     public double getCrossoverRate()
@@ -44,6 +48,8 @@ import java.util.Objects;
     public void setCrossoverRate(double crossoverRate)
     {
         this.crossoverRate = crossoverRate;
+        this.setCrossoverSize(this.getPopulationSize(), this.getCrossoverRate());
+        this.setMutationSize(this.getPopulationSize(), this.getMutationRate());
     }
 
     public double getMutationRate()
@@ -54,6 +60,28 @@ import java.util.Objects;
     public void setMutationRate(double mutationRate)
     {
         this.mutationRate = mutationRate;
+        this.setCrossoverSize(this.getPopulationSize(), this.getCrossoverRate());
+        this.setMutationSize(this.getPopulationSize(), this.getMutationRate());
+    }
+
+    public int getCrossoverSize()
+    {
+        return this.crossoverSize;
+    }
+
+    private void setCrossoverSize(int populationSize, double crossoverRate)
+    {
+        this.crossoverSize = (int) Math.round(populationSize * crossoverRate);
+    }
+
+    public int getMutationSize()
+    {
+        return this.mutationSize;
+    }
+
+    private void setMutationSize(int populationSize, double mutationRate)
+    {
+        this.mutationSize = (int) Math.round(populationSize * mutationRate);
     }
 
     @Override public boolean equals(Object o)
@@ -68,20 +96,26 @@ import java.util.Objects;
         }
         Setting setting = (Setting) o;
         return getPopulationSize() == setting.getPopulationSize() &&
+                getCrossoverSize() == setting.getCrossoverSize() &&
+                getMutationSize() == setting.getMutationSize() &&
                 Double.compare(setting.getCrossoverRate(), getCrossoverRate()) == 0 &&
                 Double.compare(setting.getMutationRate(), getMutationRate()) == 0;
     }
 
     @Override public int hashCode()
     {
-        return Objects.hash(getPopulationSize(), getCrossoverRate(), getMutationRate());
+        return Objects.hash(getPopulationSize(), getCrossoverSize(), getMutationSize(), getCrossoverRate(), getMutationRate());
     }
 
     @Override public String toString()
     {
-        return "Setting{" + "populationSize=" + populationSize +
-                ", crossoverRate=" + crossoverRate +
-                ", mutationRate=" + mutationRate +
-                '}';
+        final StringBuilder sb = new StringBuilder("Setting{");
+        sb.append("populationSize=").append(populationSize);
+        sb.append(", crossoverSize=").append(crossoverSize);
+        sb.append(", mutationSize=").append(mutationSize);
+        sb.append(", crossoverRate=").append(crossoverRate);
+        sb.append(", mutationRate=").append(mutationRate);
+        sb.append('}');
+        return sb.toString();
     }
 }
