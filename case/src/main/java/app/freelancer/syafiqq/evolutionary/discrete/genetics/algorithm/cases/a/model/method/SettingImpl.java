@@ -1,5 +1,6 @@
 package app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.method;
 
+import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.method.utils.String2DoubleMap;
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.core.model.method.Setting;
 import java.util.Objects;
 
@@ -14,27 +15,46 @@ import java.util.Objects;
 {
     private int individualWindow;
     private int generationCount;
-    private double nitrogenFactor;
-    private double phosphorusFactor;
-    private double potassiumFactor;
+    private int cutPoint;
+    private String2DoubleMap factor;
 
     public SettingImpl()
     {
+        this.factor = new String2DoubleMap();
+        this.generateElement();
     }
 
-    public SettingImpl(int populationSize, double crossoverRate, double mutationRate)
+    public SettingImpl(int individualWindow, int generationCount, int cutPoint, double nitrogenFactor, double phosphorusFactor, double potassiumFactor)
     {
-        super(populationSize, crossoverRate, mutationRate);
+        this.individualWindow = individualWindow;
+        this.generationCount = generationCount;
+        this.cutPoint = cutPoint;
+        this.factor = new String2DoubleMap();
+        this.generateElement();
+        this.putFactor("nitrogen", nitrogenFactor);
+        this.putFactor("phosphorus", phosphorusFactor);
+        this.putFactor("potassium", potassiumFactor);
     }
 
-    public SettingImpl(int populationSize, double crossoverRate, double mutationRate, int individualWindow, int generationCount, double nitrogenFactor, double phosphorusFactor, double potassiumFactor)
+    public SettingImpl(int populationSize, double crossoverRate, double mutationRate, int individualWindow, int generationCount, int cutPoint, double nitrogenFactor, double phosphorusFactor, double potassiumFactor)
     {
         super(populationSize, crossoverRate, mutationRate);
         this.individualWindow = individualWindow;
         this.generationCount = generationCount;
-        this.nitrogenFactor = nitrogenFactor;
-        this.phosphorusFactor = phosphorusFactor;
-        this.potassiumFactor = potassiumFactor;
+        this.cutPoint = cutPoint;
+        this.factor = new String2DoubleMap();
+        this.generateElement();
+        this.putFactor("nitrogen", nitrogenFactor);
+        this.putFactor("phosphorus", phosphorusFactor);
+        this.putFactor("potassium", potassiumFactor);
+
+    }
+
+    private void generateElement()
+    {
+        this.putFactor("nitrogen", 0.0);
+        this.putFactor("phosphorus", 0.0);
+        this.putFactor("potassium", 0.0);
     }
 
     public int getIndividualWindow()
@@ -47,34 +67,24 @@ import java.util.Objects;
         this.individualWindow = individualWindow;
     }
 
-    public double getNitrogenFactor()
+    public String2DoubleMap getFactor()
     {
-        return this.nitrogenFactor;
+        return this.factor;
     }
 
-    public void setNitrogenFactor(double nitrogenFactor)
+    public void setFactor(String2DoubleMap factor)
     {
-        this.nitrogenFactor = nitrogenFactor;
+        this.factor = factor;
     }
 
-    public double getPhosphorusFactor()
+    public Double getFactor(String key)
     {
-        return this.phosphorusFactor;
+        return getFactor().get(key);
     }
 
-    public void setPhosphorusFactor(double phosphorusFactor)
+    public Double putFactor(String key, Double value)
     {
-        this.phosphorusFactor = phosphorusFactor;
-    }
-
-    public double getPotassiumFactor()
-    {
-        return this.potassiumFactor;
-    }
-
-    public void setPotassiumFactor(double potassiumFactor)
-    {
-        this.potassiumFactor = potassiumFactor;
+        return getFactor().put(key, value);
     }
 
     public int getGenerationCount()
@@ -85,6 +95,16 @@ import java.util.Objects;
     public void setGenerationCount(int generationCount)
     {
         this.generationCount = generationCount;
+    }
+
+    public int getCutPoint()
+    {
+        return this.cutPoint;
+    }
+
+    public void setCutPoint(int cutPoint)
+    {
+        this.cutPoint = cutPoint;
     }
 
     @Override public boolean equals(Object o)
@@ -104,26 +124,28 @@ import java.util.Objects;
         SettingImpl setting = (SettingImpl) o;
         return getIndividualWindow() == setting.getIndividualWindow() &&
                 getGenerationCount() == setting.getGenerationCount() &&
-                Double.compare(setting.getNitrogenFactor(), getNitrogenFactor()) == 0 &&
-                Double.compare(setting.getPhosphorusFactor(), getPhosphorusFactor()) == 0 &&
-                Double.compare(setting.getPotassiumFactor(), getPotassiumFactor()) == 0;
+                getCutPoint() == setting.getCutPoint() &&
+                Objects.equals(getFactor(), setting.getFactor());
     }
 
     @Override public int hashCode()
     {
-        return Objects.hash(super.hashCode(), getIndividualWindow(), getGenerationCount(), getNitrogenFactor(), getPhosphorusFactor(), getPotassiumFactor());
+        return Objects.hash(super.hashCode(), getIndividualWindow(), getGenerationCount(), getCutPoint(), getFactor());
     }
 
     @Override public String toString()
     {
-        return "SettingImpl{" + "populationSize=" + populationSize +
-                ", crossoverRate=" + crossoverRate +
-                ", mutationRate=" + mutationRate +
-                ", individualWindow=" + individualWindow +
-                ", generationCount=" + generationCount +
-                ", nitrogenFactor=" + nitrogenFactor +
-                ", phosphorusFactor=" + phosphorusFactor +
-                ", potassiumFactor=" + potassiumFactor +
-                '}';
+        final StringBuilder sb = new StringBuilder("SettingImpl{");
+        sb.append("populationSize=").append(populationSize);
+        sb.append(", crossoverSize=").append(crossoverSize);
+        sb.append(", mutationSize=").append(mutationSize);
+        sb.append(", crossoverRate=").append(crossoverRate);
+        sb.append(", mutationRate=").append(mutationRate);
+        sb.append(", individualWindow=").append(individualWindow);
+        sb.append(", generationCount=").append(generationCount);
+        sb.append(", cutPoint=").append(cutPoint);
+        sb.append(", factor=").append(factor);
+        sb.append('}');
+        return sb.toString();
     }
 }
