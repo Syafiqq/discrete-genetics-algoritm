@@ -58,7 +58,7 @@ import org.jetbrains.annotations.Nullable;
 
     public abstract void evaluation(@NotNull IndividualEvaluator<TIndividual> evaluator, @NotNull Population<TIndividual> population, @NotNull Setting setting);
 
-    public abstract void selection(@NotNull Population<TIndividual> population);
+    public abstract void selection(@NotNull Population<TIndividual> population, @NotNull Setting setting);
 
     public abstract boolean isSatisfied();
 
@@ -71,9 +71,9 @@ import org.jetbrains.annotations.Nullable;
         this.populate(this, this.getPopulation(), this.getSetting());
         while(!this.isSatisfied())
         {
-            this.reproduction(this.getPopulation(), this.setting);
+            this.reproduction(this.getPopulation(), this.getSetting());
             this.evaluation(this, this.getPopulation(), this.getSetting());
-            this.selection(this.getPopulation());
+            this.selection(this.getPopulation(), this.getSetting());
             this.updateSatisfaction();
         }
         this.best = this.getBestIndividual(this.getParent());
