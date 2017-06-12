@@ -10,28 +10,28 @@ import java.util.Map;
  * Email        : syafiq.rezpector@gmail.com
  * Github       : syafiqq
  */
-@SuppressWarnings("unused") public class DoubleMap extends LinkedHashMap<String, Double>
+@SuppressWarnings("unused") public class String2DoubleMap extends LinkedHashMap<String, Double>
 {
-    public DoubleMap(int initialCapacity, float loadFactor)
+    public String2DoubleMap(int initialCapacity, float loadFactor)
     {
         super(initialCapacity, loadFactor);
     }
 
-    public DoubleMap(int initialCapacity)
+    public String2DoubleMap(int initialCapacity)
     {
         super(initialCapacity);
     }
 
-    public DoubleMap()
+    public String2DoubleMap()
     {
     }
 
-    public DoubleMap(Map<? extends String, ? extends Double> m)
+    public String2DoubleMap(Map<? extends String, ? extends Double> m)
     {
         super(m);
     }
 
-    public DoubleMap(int initialCapacity, float loadFactor, boolean accessOrder)
+    public String2DoubleMap(int initialCapacity, float loadFactor, boolean accessOrder)
     {
         super(initialCapacity, loadFactor, accessOrder);
     }
