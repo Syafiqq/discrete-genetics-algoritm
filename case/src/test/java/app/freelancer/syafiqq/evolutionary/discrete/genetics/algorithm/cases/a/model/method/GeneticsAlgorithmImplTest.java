@@ -45,6 +45,7 @@ public class GeneticsAlgorithmImplTest
         @NotNull final List<Fertilizer> fertilizerList = this.getFertilizer();
 
         @NotNull final SettingImpl setting = new SettingImpl();
+        setting.setGenerationCount(100);
         setting.setIndividualWindow(5);
         setting.setCrossoverRate(.5);
         setting.setMutationRate(.5);
@@ -55,9 +56,10 @@ public class GeneticsAlgorithmImplTest
         setting.setCrossoverRate(.5);
         setting.setMutationRate(.5);
         setting.setPopulationSize(5);
-        setting.setNitrogenFactor(0.45);
-        setting.setPhosphorusFactor(0.36);
-        setting.setPotassiumFactor(0.60);
+        setting.setCutPoint(3);
+        setting.putFactor("nitrogen", 0.45);
+        setting.putFactor("phosphorus", 0.36);
+        setting.putFactor("potassium", 0.60);
         @NotNull final CornPlantation plantation = new CornPlantation(300.0, 75.0, 100.0);
         @NotNull final GeneticsAlgorithmImpl ga = new GeneticsAlgorithmImpl(setting, plantation);
         ga.setFertilizers(fertilizerList);
@@ -66,6 +68,7 @@ public class GeneticsAlgorithmImplTest
         {
             System.out.println(individual);
         }
-        System.out.printf("%f, %f, %f\n", ga.getNitrogen(), ga.getPhosphorus(), ga.getPotassium());
+        System.out.println();
+        System.out.println(ga.getBest());
     }
 }
