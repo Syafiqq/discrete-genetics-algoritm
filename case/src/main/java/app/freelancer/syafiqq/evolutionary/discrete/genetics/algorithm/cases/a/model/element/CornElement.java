@@ -1,6 +1,6 @@
 package app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.element;
 
-import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.method.utils.DoubleMap;
+import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.method.utils.String2DoubleMap;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class CornElement
 {
-    private DoubleMap elements;
+    private String2DoubleMap elements;
 
     public CornElement()
     {
@@ -25,7 +25,7 @@ public class CornElement
 
     public CornElement(double nitrogen, double phosphorus, double potassium)
     {
-        this.elements = new DoubleMap();
+        this.elements = new String2DoubleMap();
         this.generateElement();
         this.put("nitrogen", nitrogen);
         this.put("phosphorus", phosphorus);
@@ -39,12 +39,12 @@ public class CornElement
         this.put("potassium", 0.0);
     }
 
-    public DoubleMap getElements()
+    public String2DoubleMap getElements()
     {
         return this.elements;
     }
 
-    public void setElements(DoubleMap elements)
+    public void setElements(String2DoubleMap elements)
     {
         this.elements = elements;
     }
@@ -85,7 +85,7 @@ public class CornElement
         {
             @Override public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2)
             {
-                return Double.compare(o2.getValue(), o1.getValue());
+                return Double.compare(o1.getValue(), o2.getValue());
             }
         });
     }
