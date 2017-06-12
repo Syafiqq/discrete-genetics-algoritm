@@ -50,12 +50,6 @@ public class GeneticsAlgorithmImplTest
         setting.setCrossoverRate(.5);
         setting.setMutationRate(.5);
         setting.setPopulationSize(5);
-        setting.setCrossoverRate(.6);
-        setting.setMutationRate(.6);
-        setting.setPopulationSize(6);
-        setting.setCrossoverRate(.5);
-        setting.setMutationRate(.5);
-        setting.setPopulationSize(5);
         setting.setCutPoint(3);
         setting.putFactor("nitrogen", 0.45);
         setting.putFactor("phosphorus", 0.36);
