@@ -109,7 +109,7 @@ public class GeneticsAlgorithmImpl extends GeneticsAlgorithm<IndividualImpl>
 
     private void initializeNutrient(@NotNull CornPlantation plantation, @NotNull SettingImpl setting)
     {
-        double scale = (this.target.getUnit().to(this.plantation.getScale().getUnit(), this.target.getScale())) / this.plantation.getScale().getScale();
+        double scale = (this.target.getUnit().to(this.plantation.getScale().getUnit(), this.target.getScale(), this.plantation.getScale().getScale()));
         for(@NotNull final String element : this.registeredElement)
         {
             this.putNutrient(element, plantation.get(element) * setting.getFactor(element) * scale);
