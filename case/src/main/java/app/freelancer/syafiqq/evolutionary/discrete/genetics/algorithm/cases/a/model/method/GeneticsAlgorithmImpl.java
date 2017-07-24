@@ -2,6 +2,7 @@ package app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.
 
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.dao.CornPlantation;
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.dao.Fertilizer;
+import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.dao.PlantationScale;
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.element.CornElement;
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.method.utils.String2DoubleMap;
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.core.model.method.GeneticsAlgorithm;
@@ -31,6 +32,7 @@ public class GeneticsAlgorithmImpl extends GeneticsAlgorithm<IndividualImpl>
     @NotNull private Integer[] fertilizerIndex;
     @NotNull private Random random;
     @NotNull private CornPlantation plantation;
+    @NotNull private PlantationScale target;
     @NotNull private String[] registeredElement;
     private int counter;
 
@@ -39,13 +41,14 @@ public class GeneticsAlgorithmImpl extends GeneticsAlgorithm<IndividualImpl>
 
     private List<String> orderedNutrient;
 
-    public GeneticsAlgorithmImpl(@NotNull SettingImpl impl, @NotNull CornPlantation plantation)
+    public GeneticsAlgorithmImpl(@NotNull SettingImpl impl, @NotNull CornPlantation plantation, @NotNull PlantationScale target)
     {
         super(impl);
         this.fertilizers = new ArrayList<>();
         this.fertilizerIndex = new Integer[0];
         this.random = ThreadLocalRandom.current();
         this.plantation = plantation;
+        this.target = target;
         this.registeredElement = new String[] {"nitrogen", "phosphorus", "potassium"};
         this.nutrient = new String2DoubleMap();
         this.content = new String2DoubleMap();
@@ -106,9 +109,10 @@ public class GeneticsAlgorithmImpl extends GeneticsAlgorithm<IndividualImpl>
 
     private void initializeNutrient(@NotNull CornPlantation plantation, @NotNull SettingImpl setting)
     {
+        double scale = (this.target.getUnit().to(this.plantation.getScale().getUnit(), this.target.getScale())) / this.plantation.getScale().getScale();
         for(@NotNull final String element : this.registeredElement)
         {
-            this.putNutrient(element, plantation.get(element) * setting.getFactor(element));
+            this.putNutrient(element, plantation.get(element) * setting.getFactor(element) * scale);
         }
         this.reorderNutrient();
     }
@@ -411,5 +415,15 @@ public class GeneticsAlgorithmImpl extends GeneticsAlgorithm<IndividualImpl>
     public Double putContent(String key, Double value)
     {
         return getContent().put(key, value);
+    }
+
+    @NotNull public PlantationScale getTarget()
+    {
+        return this.target;
+    }
+
+    public void setTarget(@NotNull PlantationScale target)
+    {
+        this.target = target;
     }
 }
