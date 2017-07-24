@@ -2,6 +2,8 @@ package app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.
 
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.dao.CornPlantation;
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.dao.Fertilizer;
+import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.dao.PlantationScale;
+import com.github.syafiqq.unit.conversion.core.unit.compound.AreaDensityUnit;
 import java.util.ArrayList;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
@@ -54,8 +56,8 @@ public class GeneticsAlgorithmImplTest
         setting.putFactor("nitrogen", 0.45);
         setting.putFactor("phosphorus", 0.36);
         setting.putFactor("potassium", 0.60);
-        @NotNull final CornPlantation plantation = new CornPlantation(300.0, 75.0, 100.0);
-        @NotNull final GeneticsAlgorithmImpl ga = new GeneticsAlgorithmImpl(setting, plantation);
+        @NotNull final CornPlantation plantation = new CornPlantation(300.0, 75.0, 100.0, new PlantationScale(AreaDensityUnit.TONNE_PER_HECTARE, 10.0));
+        @NotNull final GeneticsAlgorithmImpl ga = new GeneticsAlgorithmImpl(setting, plantation, new PlantationScale(AreaDensityUnit.KILOGRAM_PER_SQUARE_METER, 10.0));
         ga.setFertilizers(fertilizerList);
         ga.run();
         for(@NotNull final IndividualImpl individual : ga.getParent())
