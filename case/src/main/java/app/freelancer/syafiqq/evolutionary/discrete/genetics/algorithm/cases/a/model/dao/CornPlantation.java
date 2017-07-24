@@ -1,6 +1,7 @@
 package app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.dao;
 
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.method.utils.String2DoubleMap;
+import com.github.syafiqq.unit.conversion.core.unit.compound.AreaDensityUnit;
 import java.util.Objects;
 
 /*
@@ -13,19 +14,26 @@ import java.util.Objects;
 public class CornPlantation
 {
     private String2DoubleMap elements;
+    private PlantationScale scale;
 
     public CornPlantation()
     {
-        this(0.0, 0.0, 0.0);
+        this(0.0, 0.0, 0.0, new PlantationScale(AreaDensityUnit.TONNE_PER_HECTARE, 1));
     }
 
     public CornPlantation(double nitrogen, double phosphorus, double potassium)
+    {
+        this(nitrogen, phosphorus, potassium, new PlantationScale(AreaDensityUnit.TONNE_PER_HECTARE, 1));
+    }
+
+    public CornPlantation(double nitrogen, double phosphorus, double potassium, PlantationScale scale)
     {
         this.elements = new String2DoubleMap(3);
         this.generateElement();
         this.put("nitrogen", nitrogen);
         this.put("phosphorus", phosphorus);
         this.put("potassium", potassium);
+        this.scale = scale;
     }
 
     private void generateElement()
@@ -73,6 +81,16 @@ public class CornPlantation
     public Double put(String key, Double value)
     {
         return elements.put(key, value);
+    }
+
+    public PlantationScale getScale()
+    {
+        return this.scale;
+    }
+
+    public void setScale(PlantationScale scale)
+    {
+        this.scale = scale;
     }
 
     @Override public boolean equals(Object o)
