@@ -18,12 +18,12 @@ public class CornPlantation
 
     public CornPlantation()
     {
-        this(0.0, 0.0, 0.0, new PlantationScale(AreaDensityUnit.TONNE_PER_HECTARE, 1));
+        this(0.0, 0.0, 0.0, new PlantationScale(AreaDensityUnit.TONNE_PER_HECTARE, 1, 1));
     }
 
     public CornPlantation(double nitrogen, double phosphorus, double potassium)
     {
-        this(nitrogen, phosphorus, potassium, new PlantationScale(AreaDensityUnit.TONNE_PER_HECTARE, 1));
+        this(nitrogen, phosphorus, potassium, new PlantationScale(AreaDensityUnit.TONNE_PER_HECTARE, 1, 1));
     }
 
     public CornPlantation(double nitrogen, double phosphorus, double potassium, PlantationScale scale)
