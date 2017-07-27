@@ -18,7 +18,7 @@ public class UnitConversionTest
         double source = 10;
         AreaDensityUnit sourceUnit = AreaDensityUnit.TONNE_PER_HECTARE;
         AreaDensityUnit resultUnit = AreaDensityUnit.KILOGRAM_PER_SQUARE_METER;
-        double result = sourceUnit.to(resultUnit, 10);
+        double result = AreaDensityUnit.converse(source, sourceUnit, resultUnit);
         Assert.assertEquals(1.0, result, 0.0);
     }
 
@@ -36,28 +36,28 @@ public class UnitConversionTest
 
         need = 100;
         needUnit = AreaDensityUnit.TONNE_PER_HECTARE;
-        multiplication = (needUnit.to(sourceUnit, need, source));
+        multiplication = AreaDensityUnit.converse(need, needUnit, source, sourceUnit);
         result = nutrient * multiplication;
         Assert.assertEquals(1E1, multiplication, 0.0);
         Assert.assertEquals(3000.0, result, 0.0);
 
         need = 10;
         needUnit = AreaDensityUnit.TONNE_PER_HECTARE;
-        multiplication = (needUnit.to(sourceUnit, need, source));
+        multiplication = AreaDensityUnit.converse(need, needUnit, source, sourceUnit);
         result = nutrient * multiplication;
         Assert.assertEquals(1E0, multiplication, 0.0);
         Assert.assertEquals(300.0, result, 0.0);
 
         need = 1;
         needUnit = AreaDensityUnit.TONNE_PER_HECTARE;
-        multiplication = (needUnit.to(sourceUnit, need, source));
+        multiplication = AreaDensityUnit.converse(need, needUnit, source, sourceUnit);
         result = nutrient * multiplication;
         Assert.assertEquals(1E-1, multiplication, 0.0);
         Assert.assertEquals(30.0, result, 0.0);
 
         need = 1;
         needUnit = AreaDensityUnit.KILOGRAM_PER_SQUARE_METER;
-        multiplication = (needUnit.to(sourceUnit, need, source));
+        multiplication = AreaDensityUnit.converse(need, needUnit, source, sourceUnit);
         result = nutrient * multiplication;
         Assert.assertEquals(1E0, multiplication, 0.0);
         Assert.assertEquals(300.0, result, 0.0);

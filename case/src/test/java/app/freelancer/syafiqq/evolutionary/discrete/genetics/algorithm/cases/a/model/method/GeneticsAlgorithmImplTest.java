@@ -56,8 +56,8 @@ public class GeneticsAlgorithmImplTest
         setting.putFactor("nitrogen", 0.45);
         setting.putFactor("phosphorus", 0.36);
         setting.putFactor("potassium", 0.60);
-        @NotNull final CornPlantation plantation = new CornPlantation(300.0, 75.0, 100.0, new PlantationScale(AreaDensityUnit.TONNE_PER_HECTARE, 10.0));
-        @NotNull final GeneticsAlgorithmImpl ga = new GeneticsAlgorithmImpl(setting, plantation, new PlantationScale(AreaDensityUnit.KILOGRAM_PER_SQUARE_METER, 10.0));
+        @NotNull final CornPlantation plantation = new CornPlantation(300.0, 75.0, 100.0, new PlantationScale(AreaDensityUnit.TONNE_PER_HECTARE, 10.0, 1));
+        @NotNull final GeneticsAlgorithmImpl ga = new GeneticsAlgorithmImpl(setting, plantation, new PlantationScale(AreaDensityUnit.KILOGRAM_PER_SQUARE_METER, 100, 500));
         ga.setFertilizers(fertilizerList);
         ga.run();
         for(@NotNull final IndividualImpl individual : ga.getParent())

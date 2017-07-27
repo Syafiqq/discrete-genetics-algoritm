@@ -9,6 +9,7 @@ import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.core.mode
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.core.model.method.IndividualEvaluator;
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.core.model.method.Population;
 import app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.core.model.method.Setting;
+import com.github.syafiqq.unit.conversion.core.unit.compound.AreaDensityUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -109,7 +110,7 @@ public class GeneticsAlgorithmImpl extends GeneticsAlgorithm<IndividualImpl>
 
     private void initializeNutrient(@NotNull CornPlantation plantation, @NotNull SettingImpl setting)
     {
-        double scale = (this.target.getUnit().to(this.plantation.getScale().getUnit(), this.target.getScale(), this.plantation.getScale().getScale()));
+        double scale = AreaDensityUnit.converse(this.target, this.plantation.getScale());
         for(@NotNull final String element : this.registeredElement)
         {
             this.putNutrient(element, plantation.get(element) * setting.getFactor(element) * scale);

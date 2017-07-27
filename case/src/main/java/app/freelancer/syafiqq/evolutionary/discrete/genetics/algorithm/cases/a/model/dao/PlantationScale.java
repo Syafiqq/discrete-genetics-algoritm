@@ -1,6 +1,8 @@
 package app.freelancer.syafiqq.evolutionary.discrete.genetics.algorithm.cases.a.model.dao;
 
 import com.github.syafiqq.unit.conversion.core.unit.compound.AreaDensityUnit;
+import com.github.syafiqq.unit.conversion.core.unit.single.AreaUnit;
+import com.github.syafiqq.unit.conversion.core.unit.single.WeightUnit;
 import java.util.Objects;
 
 /*
@@ -10,24 +12,46 @@ import java.util.Objects;
  * Email        : syafiq.rezpector@gmail.com
  * Github       : syafiqq
  */
-public class PlantationScale
+public class PlantationScale implements AreaDensityUnit.AreaDensityWrapper<Double>
 {
     private AreaDensityUnit unit;
-    private double scale;
+    private double weight;
+    private double area;
 
     public PlantationScale()
     {
     }
 
-    public PlantationScale(AreaDensityUnit unit, double scale)
+    public PlantationScale(AreaDensityUnit unit, double weight, double area)
     {
         this.unit = unit;
-        this.scale = scale;
+        this.weight = weight;
+        this.area = area;
     }
 
-    public AreaDensityUnit getUnit()
+    @Override public AreaDensityUnit getUnit()
     {
         return this.unit;
+    }
+
+    @Override public WeightUnit getWeightUnit()
+    {
+        return this.unit.getWeight();
+    }
+
+    @Override public AreaUnit getAreaUnit()
+    {
+        return this.unit.getArea();
+    }
+
+    @Override public Double getWeightValue()
+    {
+        return this.getWeight();
+    }
+
+    @Override public Double getAreaValue()
+    {
+        return this.getArea();
     }
 
     public void setUnit(AreaDensityUnit unit)
@@ -35,14 +59,24 @@ public class PlantationScale
         this.unit = unit;
     }
 
-    public double getScale()
+    public double getWeight()
     {
-        return this.scale;
+        return this.weight;
     }
 
-    public void setScale(double scale)
+    public void setWeight(double weight)
     {
-        this.scale = scale;
+        this.weight = weight;
+    }
+
+    public double getArea()
+    {
+        return this.area;
+    }
+
+    public void setArea(double area)
+    {
+        this.area = area;
     }
 
     @Override public boolean equals(Object o)
@@ -56,20 +90,22 @@ public class PlantationScale
             return false;
         }
         PlantationScale that = (PlantationScale) o;
-        return Double.compare(that.getScale(), getScale()) == 0 &&
+        return Double.compare(that.getWeight(), getWeight()) == 0 &&
+                Double.compare(that.getArea(), getArea()) == 0 &&
                 getUnit() == that.getUnit();
     }
 
     @Override public int hashCode()
     {
-        return Objects.hash(getUnit(), getScale());
+        return Objects.hash(getUnit(), getWeight(), getArea());
     }
 
     @Override public String toString()
     {
         final StringBuilder sb = new StringBuilder("PlantationScale{");
         sb.append("unit=").append(unit);
-        sb.append(", scale=").append(scale);
+        sb.append(", weight=").append(weight);
+        sb.append(", area=").append(area);
         sb.append('}');
         return sb.toString();
     }
