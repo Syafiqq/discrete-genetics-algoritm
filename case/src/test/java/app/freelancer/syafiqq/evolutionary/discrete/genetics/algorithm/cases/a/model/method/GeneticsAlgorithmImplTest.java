@@ -22,16 +22,16 @@ public class GeneticsAlgorithmImplTest
     {
         Object[][] rawFertilizer = new Object[][]
                 {
-                        new Object[] {"Za", 45, 0, 0, 1400},
-                        new Object[] {"SP-36", 0, 36, 0, 2000},
-                        new Object[] {"ZK", 0, 0, 49, 18000},
-                        new Object[] {"KCL-80", 0, 0, 52, 2200},
-                        new Object[] {"Pa", 0, 0, 21, 10000},
-                        new Object[] {"Urea", 45, 0, 0, 2100},
-                        new Object[] {"Phonska", 15, 15, 15, 2300},
-                        new Object[] {"KCI", 0, 0, 60, 2200},
-                        new Object[] {"NPK Mutiara", 16, 16, 16, 9000},
-                };
+                        new Object[] {"Za", 45, 0, 0, 1400},                 //0
+                        new Object[] {"SP-36", 0, 36, 0, 2000},              //1
+                        new Object[] {"ZK", 0, 0, 50, 5600},                 //2
+                        new Object[] {"KCL-80", 0, 0, 52, 3500},             //3
+                        new Object[] {"KCL-Kanada", 0, 0, 60, 8000},         //4
+                        new Object[] {"Urea", 46, 0, 0, 1800},               //5
+                        new Object[] {"Phonska", 15, 15, 15, 2300},          //6
+                        new Object[] {"KCI-Rusia", 0, 0, 60, 5000},          //7
+                        new Object[] {"NPK Mutiara", 16, 16, 16, 9000},      //8
+                };     //8
 
         @NotNull final List<Fertilizer> fertilizerList = new ArrayList<>();
         for(Object[] fertilizer : rawFertilizer)
@@ -57,7 +57,7 @@ public class GeneticsAlgorithmImplTest
         setting.putFactor("phosphorus", 0.36);
         setting.putFactor("potassium", 0.60);
         @NotNull final CornPlantation plantation = new CornPlantation(300.0, 75.0, 100.0, new PlantationScale(AreaDensityUnit.TONNE_PER_HECTARE, 10.0, 1));
-        @NotNull final GeneticsAlgorithmImpl ga = new GeneticsAlgorithmImpl(setting, plantation, new PlantationScale(AreaDensityUnit.KILOGRAM_PER_SQUARE_METER, 100, 500));
+        @NotNull final GeneticsAlgorithmImpl ga = new GeneticsAlgorithmImpl(setting, plantation, new PlantationScale(AreaDensityUnit.TONNE_PER_HECTARE, 10.0, 1));
         ga.setFertilizers(fertilizerList);
         ga.run();
         for(@NotNull final IndividualImpl individual : ga.getParent())
