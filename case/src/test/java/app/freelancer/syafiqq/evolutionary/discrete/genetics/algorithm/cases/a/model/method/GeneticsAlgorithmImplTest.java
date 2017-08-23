@@ -22,7 +22,7 @@ public class GeneticsAlgorithmImplTest
     {
         Object[][] rawFertilizer = new Object[][]
                 {
-                        new Object[] {"Za", 45, 0, 0, 1400},                 //0
+                        new Object[] {"Za", 21, 0, 0, 1400},                 //0
                         new Object[] {"SP-36", 0, 36, 0, 2000},              //1
                         new Object[] {"ZK", 0, 0, 50, 5600},                 //2
                         new Object[] {"KCL-80", 0, 0, 52, 3500},             //3
@@ -48,7 +48,7 @@ public class GeneticsAlgorithmImplTest
 
         @NotNull final SettingImpl setting = new SettingImpl();
         setting.setGenerationCount(100);
-        setting.setIndividualWindow(5);
+        setting.setIndividualWindow(fertilizerList.size());
         setting.setCrossoverRate(.5);
         setting.setMutationRate(.5);
         setting.setPopulationSize(5);
